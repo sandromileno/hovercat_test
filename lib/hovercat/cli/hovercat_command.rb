@@ -1,4 +1,6 @@
 require 'thor'
+require 'hovercat/generators/memory_config_generator'
+require 'hovercat/generators/redis_config_generator'
 
 module Hovercat
   module Cli
@@ -8,19 +10,19 @@ module Hovercat
 
       check_unknown_options!
 
-      desc "Redis storage", "Storage all retry data in redis"
+      desc "Redis storage", "Stores all retry data in redis"
       def redis_store
-        puts "Hello #{name}"
+        Hovercat::Generators::RedisConfigGenerator.start
       end
 
-      desc "Memory storage", "Storage all retry data in local memory"
+      desc "Memory storage", "Stores all retry data in local memory"
       def memory_store
         Hovercat::Generators::MemoryConfigGenerator.start
       end
 
       desc "version", "Shows the Hovercat version"
       def version
-        Hovercat::Generators::RedisConfigGenerator.start
+        say "Hovercat v#{Hovercat::VERSION}"
       end
     end
   end
