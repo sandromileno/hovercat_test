@@ -8,14 +8,19 @@ module Hovercat
 
       check_unknown_options!
 
-      desc "hello NAME", "say hello to NAME"
-      def hello(name)
+      desc "Redis storage", "Storage all retry data in redis"
+      def redis_store
         puts "Hello #{name}"
+      end
+
+      desc "Memory storage", "Storage all retry data in local memory"
+      def memory_store
+        Hovercat::Generators::MemoryConfigGenerator.start
       end
 
       desc "version", "Shows the Hovercat version"
       def version
-        say "Hovercat v#{SmppClient::VERSION}"
+        Hovercat::Generators::RedisConfigGenerator.start
       end
     end
   end
